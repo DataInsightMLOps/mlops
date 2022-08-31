@@ -8,6 +8,8 @@ RUN pip3 install -r requirements.txt
 
 COPY timm  timm
 
+COPY conf conf
+
 COPY . .
 
 ENTRYPOINT ["python3", "inference.py"]
