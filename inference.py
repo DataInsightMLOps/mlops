@@ -10,16 +10,18 @@ from timm.data.transforms_factory import create_transform
 def execute(cfg: DictConfig) -> None:
     model = cfg.model
     image = cfg.image
-    print(f"model : {model} , image : {image}")
     import timm
     model = timm.create_model(model, pretrained=True)
     model.eval()
-    print(infer( model ))
+    import json
+    print((infer( model , image)))
 
-def infer(model):
+def infer(model, image):
     config = resolve_data_config({}, model=model)
     transform = create_transform(**config)
-    url, filename = ("https://github.com/pytorch/hub/raw/master/images/dog.jpg", "dog.jpg")
+    parts = image.split("/")
+    fname = parts[-1]
+    url, filename = (image, fname)
     urllib.request.urlretrieve(url, filename)
     img = Image.open(filename).convert('RGB')
     tensor = transform(img).unsqueeze(0) # transform and add batch dimension
@@ -37,10 +39,9 @@ def infer(model):
     response = ""
     import json
     for i in range(top1_prob.size(0)):
-        output = {}
-        output["predicted"] = categories[top1_catid[i]]
-        output["confidence"] = top1_prob[i].item()
-        response = json.dumps(output)
-    return response    
+        ##output = {}
+        response = f'"predicted" :  "{categories[top1_catid[i]]}", "confidence" : {top1_prob[i].item()}'
+        ##response = output
+    return "{"+response    +"}"
 if __name__ == "__main__":
     execute()

@@ -144,7 +144,7 @@ def _resolve_pretrained_source(pretrained_cfg):
 def set_pretrained_download_progress(enable=True):
     """ Set download progress for pretrained weights on/off (globally). """
     global _DOWNLOAD_PROGRESS
-    _DOWNLOAD_PROGRESS = enable
+    _DOWNLOAD_PROGRESS = False
 
 
 def set_pretrained_check_hash(enable=True):
@@ -238,14 +238,14 @@ def load_pretrained(
     pretrained_cfg = pretrained_cfg or getattr(model, 'pretrained_cfg', None) or {}
     load_from, pretrained_loc = _resolve_pretrained_source(pretrained_cfg)
     if load_from == 'file':
-        _logger.info(f'Loading pretrained weights from file ({pretrained_loc})')
+        ##_logger.info(f'Loading pretrained weights from file ({pretrained_loc})')
         state_dict = load_state_dict(pretrained_loc)
     elif load_from == 'url':
-        _logger.info(f'Loading pretrained weights from url ({pretrained_loc})')
+        ##_logger.info(f'Loading pretrained weights from url ({pretrained_loc})')
         state_dict = load_state_dict_from_url(
             pretrained_loc, map_location='cpu', progress=_DOWNLOAD_PROGRESS, check_hash=_CHECK_HASH)
     elif load_from == 'hf-hub':
-        _logger.info(f'Loading pretrained weights from Hugging Face hub ({pretrained_loc})')
+        ##_logger.info(f'Loading pretrained weights from Hugging Face hub ({pretrained_loc})')
         state_dict = load_state_dict_from_hf(pretrained_loc)
     else:
         _logger.warning("No pretrained weights exist or were found for this model. Using random initialization.")

@@ -44,7 +44,7 @@ def download_cached_file(url, check_hash=True, progress=False):
     filename = os.path.basename(parts.path)
     cached_file = os.path.join(get_cache_dir(), filename)
     if not os.path.exists(cached_file):
-        _logger.info('Downloading: "{}" to {}\n'.format(url, cached_file))
+        ##_logger.info('Downloading: "{}" to {}\n'.format(url, cached_file))
         hash_prefix = None
         if check_hash:
             r = HASH_REGEX.search(filename)  # r is Optional[Match[str]]

@@ -2,3 +2,4 @@ hydra-core
 omegaconf
 torchvision
 Pillow
+pytest
