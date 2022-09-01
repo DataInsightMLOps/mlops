@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./tests/test_all.sh
+python3 inference.py "$@"
