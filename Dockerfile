@@ -12,4 +12,4 @@ COPY conf conf
 
 COPY . .
 
-ENTRYPOINT ["python3", "inference.py"]
+ENTRYPOINT ["sh","entrypoint.sh"]
